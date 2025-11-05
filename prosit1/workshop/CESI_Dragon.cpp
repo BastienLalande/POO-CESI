@@ -8,15 +8,11 @@ class hero{
         int pa;
     public:
         hero();
-        hero(std::string _nom, int _pv, int _pa){
-            this->nom = _nom;
-            this->pv = _pv;
-            this->pa = _pa;
-        }
-        int attaque(){return this->pa;}
-        void subitDegat(int _degat){this->pv-=_degat;if(this->pv<0)this->pv=0;}
-        bool estVivant(){if (this->pv>0) return 1; else return 0;}
-        void affiche(){
+        hero(std::string _nom, int _pv, int _pa) : nom(std::move(_nom)), pv(_pv), pa(_pa){}
+        int attaque() const{return this->pa;}
+        void subitDegat(int _degat){this->pv -= _degat; this->pv = std::max(0, this->pv);}
+        bool estVivant() const{return this->pv>0;}
+        void affiche() const{
             std::cout << R"(
   ,^.
   |||
@@ -31,7 +27,7 @@ class hero{
         | \     / |
         | |     | |
       <\\\)     (///>
-            )" << std::endl;
+            )" << '\n';
         }
 };
 
@@ -42,15 +38,11 @@ class creature {
         int nv;
     public:
         creature();
-        creature(int _pv, int _pa, int _niveau){
-            this->nv = _niveau;
-            this->pv = _pv;
-            this->pa = _pa;
-        }
-        int attaque(){return this->pa;}
-        void subitDegat(int _degat){this->pv-=_degat;if(this->pv<0)this->pv=0;}
-        bool estVivant(){if (this->pv>0) return 1; else return 0;}
-        void affiche(){
+        creature(int _pv, int _pa, int _niveau) : pv(_pv), pa(_pa), nv(_niveau){}
+        int attaque() const {return this->pa*this->nv;}
+        void subitDegat(int _degat){this->pv-=_degat;this->pv = std::max(this->pv, 0);}
+        bool estVivant() const {return this->pv>0;}
+        void affiche() const {
             std::cout << R"(
                                                        ____________
                                  (`-..________....---''  ____..._.-`
@@ -66,26 +58,39 @@ class creature {
 \_____--.  '`  `               __..-.  \     . (   < _...-----..._   `.
  \_,--..__. \\ .-`.\----'';``,..-.__ \  \      ,`_. `.,-'`--'`---''`.  )
            `.\`.\  `_.-..' ,'   _,-..'  /..,-''(, ,' ; ( _______`___..'__
-                   ((,(,__(    ((,(,__,'  ``'-- `'`.(\  `.,..______ 
+                   ((,(,__(    ((,(,__,'  ``'-- `'`.(\  `.,..______
                                                       ``--------..._``--.__
-            )" << std::endl;
+            )" << '\n';
         }
 };
 
 
 
 int main(){
-    std::cout << "---" << std::endl;
-    hero h{"Hrun",10,8};
-    creature c{10,10,1};
-    h.affiche();
-    c.affiche();
+    std::string input;
 
-    c.subitDegat(h.attaque());
-    h.subitDegat(c.attaque());
+    hero player{"Bastoche",100, 8};
 
-    h.affiche();
-    c.affiche();
-    std::cout << "---" << std::endl;
+    creature enemy{50,8,1};
+
+    player.affiche();
+    enemy.affiche();
+
+    while (true) {
+        std::cout << R"(
+Que voulez vous faire ? :
+1: attaquer     2: ne rien faire
+-------------------------------------------------------
+        )";
+        std::cout << "'q' to quit ===>";
+        std::getline(std::cin, input);
+        if (input == "q") {
+            break;
+        }
+
+        if (input == "1") {
+            enemy.subitDegat(player.attaque());
+        }
+    }
     return 0;
 }

@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/Bastien/OneDrive - Association Cesi Viacesi mail/A2/Projet Conception et programmation objet/POO-CESI-PBL/prosit1/workshop",
-      "program": "c:/Users/Bastien/OneDrive - Association Cesi Viacesi mail/A2/Projet Conception et programmation objet/POO-CESI-PBL/prosit1/workshop/build/Debug/outDebug",
+      "cwd": "c:/Users/Bastien/OneDrive - Association Cesi Viacesi mail/A2/Projet Conception et programmation objet/POO-CESI-PBL/prosit1/solution",
+      "program": "c:/Users/Bastien/OneDrive - Association Cesi Viacesi mail/A2/Projet Conception et programmation objet/POO-CESI-PBL/prosit1/solution/build/Release/outRelease",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [

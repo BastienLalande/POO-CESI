@@ -1,24 +1,22 @@
 #include <iostream>
 #include <cmath>
 
-typedef enum {
+using IntersectionStatus = enum {
     POINT,
     COLINEAR_INTERSECTING,
     COLINEAR_NON_INTERSECTING,
     PARALLEL_NON_INTERSECTING,
     NON_INTERSECTING
-} IntersectionStatus;
+};
 
 class Vector2 {
     public:
     double x;
     double y;
-    void init(double _x, double _y) {
-        this->x = _x;
-        this->y = _y;
-    }
-    double norm() {
-        return sqrt(this->x * this->x + this->y * this->y);
+    Vector2() : x(0.0), y(0.0) {}
+    Vector2(double _x, double _y) : x(_x), y(_y) {}
+    double norm() const {
+        return sqrt((this->x * this->x) + (this->y * this->y));
     }
     void negate() {
         this->x = -this->x;
@@ -27,11 +25,11 @@ class Vector2 {
 };
 
 double dot(Vector2 v, Vector2 r) {
-    return v.x * r.x + v.y * r.y;
+    return (v.x * r.x) + (v.y * r.y);
 }
 
 double det_vector(Vector2 v, Vector2 r) {
-    return v.x * r.y - v.y * r.x;
+    return (v.x * r.y) - (v.y * r.x);
 }
 
 Vector2 dot_scalar(Vector2 v, double u) {
@@ -44,24 +42,18 @@ class Point2 {
     public:
     double x;
     double y;
-    void init(double _x, double _y) {
-        this->x = _x;
-        this->y = _y;
-    }
-    
+    Point2() : x(0.0), y(0.0) {}
+    Point2(double _x, double _y) : x(_x), y(_y) {}
+
 };
 
 Point2 Point2_add(Point2 p,Vector2 r) {
-    Point2 result;
-    result.x = p.x + r.x;
-    result.y = p.y + r.y;
+    Point2 result(p.x + r.x, p.y + r.y);
     return result;
 }
 
 Vector2 Point2_sub(Point2 p, Point2 r) {
-    Vector2 result;
-    result.x = p.x - r.x;
-    result.y = p.y - r.y;
+    Vector2 result(p.x - r.x, p.y - r.y);
     return result;
 }
 
@@ -69,18 +61,17 @@ class Segment2 {
     public:
     Point2 origin;
     Vector2 direction;
-    void init(Point2 _origin, Vector2 _direction) {
-        this->origin = _origin;
-        this->direction = _direction;
-    }
-    double length() {
+    Segment2(Point2 _origin, Vector2 _direction) : origin(_origin), direction(_direction) {}
+    double length() const {
         return direction.norm();
     }
 };
 
 IntersectionStatus Segment2_intersect(Segment2 s,Segment2 r, Point2 *p) {
-    Point2 oa = s.origin, ob = r.origin;
-    Vector2 da = s.direction, db = r.direction;
+    Point2 oa = s.origin;
+    Point2 ob = r.origin;
+    Vector2 da = s.direction;
+    Vector2 db = r.direction;
     Vector2 dc = Point2_sub(ob, oa);
 
     IntersectionStatus status;
@@ -104,7 +95,7 @@ IntersectionStatus Segment2_intersect(Segment2 s,Segment2 r, Point2 *p) {
 
             pj = dot(da, da);
             d1 = dot(dc, da) / pj;
-            d2 = d1 + dot(db, da) / pj;
+            d2 = d1 + (dot(db, da) / pj);
 
             if (d1 >= 0.0 && d1 <= 1.0) {
                 *p = ob;
@@ -124,22 +115,19 @@ IntersectionStatus Segment2_intersect(Segment2 s,Segment2 r, Point2 *p) {
 }
 
 int main() {
-    std::cout << "debut du programme" << std::endl;
-    Point2 p1, p2;
-    p1.init(0., 0.);
-    p2.init(1., 0.);
-    Vector2 v1, v2;
-    v1.init(4., 4.);
-    v2.init(-4., 4.);
-    Segment2 s1, s2;
-    s1.init(p1, v1);
-    s2.init(p2, v2);
+    std::cout << "debut du programme" << '\n';
+    Point2 p1(0., 0.);
+    Point2 p2(1., 0.);
+    Vector2 v1(4., 4.);
+    Vector2 v2(-4., 4.);
+    Segment2 s1(p1, v1);
+    Segment2 s2(p2, v2);
 
-    
+
     Point2 p3;
     IntersectionStatus status = Segment2_intersect(s1, s2, &p3);
-    std::cout << "status: " << status << std::endl;
-    std::cout << "p3:(" << p3.x << "," << p3.y << ")" << std::endl;
+    std::cout << "status: " << status << '\n';
+    std::cout << "p3:(" << p3.x << "," << p3.y << ")" << '\n';
 
     return EXIT_SUCCESS;
 }
