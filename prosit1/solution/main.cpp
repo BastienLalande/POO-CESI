@@ -1,7 +1,7 @@
 #include <iostream>
 #include <cmath>
 
-using IntersectionStatus = enum {
+using IntersectionStatus = enum : std::uint8_t {
     POINT,
     COLINEAR_INTERSECTING,
     COLINEAR_NON_INTERSECTING,
