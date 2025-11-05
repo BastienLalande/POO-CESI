@@ -11,14 +11,14 @@ typedef enum {
 
 class Vector2 {
     public:
-    float x;
-    float y;
-    void init(float x, float y) {
-        this->x = x;
-        this->y = y;
+    double x;
+    double y;
+    void init(double _x, double _y) {
+        this->x = _x;
+        this->y = _y;
     }
-    float norm() {
-        return sqrt(x * x + y * y);
+    double norm() {
+        return sqrt(this->x * this->x + this->y * this->y);
     }
     void negate() {
         this->x = -this->x;
@@ -26,15 +26,15 @@ class Vector2 {
     }
 };
 
-float dot(Vector2 v, Vector2 r) {
+double dot(Vector2 v, Vector2 r) {
     return v.x * r.x + v.y * r.y;
 }
 
-float det_vector(Vector2 v, Vector2 r) {
+double det_vector(Vector2 v, Vector2 r) {
     return v.x * r.y - v.y * r.x;
 }
 
-Vector2 dot_scalar(Vector2 v, float u) {
+Vector2 dot_scalar(Vector2 v, double u) {
     v.x = u * v.x;
     v.y = u * v.y;
     return v;
@@ -42,14 +42,15 @@ Vector2 dot_scalar(Vector2 v, float u) {
 
 class Point2 {
     public:
-    float x;
-    float y;
-    void init(float x, float y) {
-        this->x = x;
-        this->y = y;
+    double x;
+    double y;
+    void init(double _x, double _y) {
+        this->x = _x;
+        this->y = _y;
     }
     
 };
+
 Point2 Point2_add(Point2 p,Vector2 r) {
     Point2 result;
     result.x = p.x + r.x;
@@ -68,11 +69,11 @@ class Segment2 {
     public:
     Point2 origin;
     Vector2 direction;
-    void init(Point2 origin, Vector2 direction) {
-        this->origin = origin;
-        this->direction = direction;
+    void init(Point2 _origin, Vector2 _direction) {
+        this->origin = _origin;
+        this->direction = _direction;
     }
-    float length() {
+    double length() {
         return direction.norm();
     }
 };
@@ -83,9 +84,9 @@ IntersectionStatus Segment2_intersect(Segment2 s,Segment2 r, Point2 *p) {
     Vector2 dc = Point2_sub(ob, oa);
 
     IntersectionStatus status;
-    float det = det_vector(da, db);
+    double det = det_vector(da, db);
     if (det != 0.0) {
-        float u, v;
+        double u, v;
 
         u = det_vector(dc, db) / det;
         v = det_vector(dc, da) / det;
@@ -97,9 +98,9 @@ IntersectionStatus Segment2_intersect(Segment2 s,Segment2 r, Point2 *p) {
             status = NON_INTERSECTING;
         }
     } else {
-        float st = det_vector(dc, da);
+        double st = det_vector(dc, da);
         if (det == 0.0 && st == 0.0) { // check for collinearity
-            float pj, d1, d2;
+            double pj, d1, d2;
 
             pj = dot(da, da);
             d1 = dot(dc, da) / pj;
