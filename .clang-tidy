@@ -10,18 +10,10 @@ CheckOptions:
 Checks: '-*,readability-identifier-length'
 CheckOptions:
   - key: readability-identifier-length.MinimumVariableNameLength
-    value: '3'
-  - key: readability-identifier-length.IgnoredVariableNames
-    value: '^_.*$'  # Exemple : ignore les noms commençant par _
+    value: '0'
   - key: readability-identifier-length.MinimumParameterNameLength
-    value: '3'
-  - key: readability-identifier-length.IgnoredParameterNames
-    value: '^[n]$'
+    value: '0'
   - key: readability-identifier-length.MinimumLoopCounterNameLength
-    value: '2'
-  - key: readability-identifier-length.IgnoredLoopCounterNames
-    value: '^[ijk_]$'
+    value: '0'
   - key: readability-identifier-length.MinimumExceptionNameLength
-    value: '2'
-  - key: readability-identifier-length.IgnoredExceptionVariableNames
-    value: '^[e]$'
+    value: '0'
