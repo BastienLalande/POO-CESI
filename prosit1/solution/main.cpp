@@ -22,11 +22,10 @@ class Vector2 {
         this->x = -this->x;
         this->y = -this->y;
     }
+    double operator*( Vector2 &other ){
+        return (this->x*other.x + this->y*other.y);
+    }
 };
-
-double dot(Vector2 v, Vector2 r) {
-    return (v.x * r.x) + (v.y * r.y);
-}
 
 double det_vector(Vector2 v, Vector2 r) {
     return (v.x * r.y) - (v.y * r.x);
@@ -93,9 +92,9 @@ IntersectionStatus Segment2_intersect(Segment2 s,Segment2 r, Point2 *p) {
         if (det == 0.0 && st == 0.0) { // check for collinearity
             double pj, d1, d2;
 
-            pj = dot(da, da);
-            d1 = dot(dc, da) / pj;
-            d2 = d1 + (dot(db, da) / pj);
+            pj = (da * da);
+            d1 = (dc * da) / pj;
+            d2 = d1 + ((db * da) / pj);
 
             if (d1 >= 0.0 && d1 <= 1.0) {
                 *p = ob;
