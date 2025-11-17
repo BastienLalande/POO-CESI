@@ -1,0 +1,50 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+class Point {
+    + pos : vector<double>
+    + Point(_pos : vector<double>)
+    + ~Point()
+}
+
+abstract class Forme {
+    + ~Forme()
+    + aire() : double
+    + perimetre() : double
+}
+
+class Polygone {
+    - sommets : vector<Point>
+    + Polygone(_pts : vector<Point>)
+    + getSommets() : const vector<Point>&
+    + perimetre() : double
+}
+
+class Triangle {
+    + Triangle(p1 : Point, p2 : Point, p3 : Point)
+    + aire() : double
+}
+
+class Rectangle {
+    + Rectangle(p1 : Point, p3 : Point)
+    + aire() : double
+}
+
+class Carre {
+    + Carre(p1 : Point, cote : double)
+}
+
+class Cercle {
+    - centre : Point
+    - rayon : double
+    + Cercle(c : Point, r : double)
+    + perimetre() : double
+    + aire() : double
+}
+
+Forme <|-- Polygone
+Forme <|-- Cercle
+Polygone <|-- Triangle
+Polygone <|-- Rectangle
+Rectangle <|-- Carre
+@enduml
