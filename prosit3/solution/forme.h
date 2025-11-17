@@ -12,7 +12,7 @@ class Point {
 public:
     vector<double> pos;
     Point(const vector<double>& _pos) : pos(_pos) {
-        if (pos.size() < 2) pos.resize(2);
+        if (pos.size() != 2) pos.resize(2);
     }
     ~Point() = default;
 };
@@ -40,7 +40,7 @@ public:
             size_t next = (i + 1) % sommets.size();
             double dx = sommets[i].pos[0] - sommets[next].pos[0];
             double dy = sommets[i].pos[1] - sommets[next].pos[1];
-            perim += std::sqrt(dx*dx + dy*dy);
+            perim += sqrt(dx*dx + dy*dy);
         }
         return perim;
     }
@@ -55,7 +55,7 @@ public:
         double x1 = sommets[0].pos[0], y1 = sommets[0].pos[1];
         double x2 = sommets[1].pos[0], y2 = sommets[1].pos[1];
         double x3 = sommets[2].pos[0], y3 = sommets[2].pos[1];
-        return 0.5 * std::fabs(x1*(y2 - y3) + x2*(y3 - y1) + x3*(y1 - y2));
+        return 0.5 * fabs(x1*(y2 - y3) + x2*(y3 - y1) + x3*(y1 - y2));
     }
 };
 
@@ -69,8 +69,8 @@ public:
             Point({p1.pos[0], p3.pos[1]})
         }) {}
     double aire() const override {
-        double largeur = std::fabs(sommets[1].pos[0] - sommets[0].pos[0]);
-        double hauteur = std::fabs(sommets[3].pos[1] - sommets[0].pos[1]);
+        double largeur = fabs(sommets[1].pos[0] - sommets[0].pos[0]);
+        double hauteur = fabs(sommets[3].pos[1] - sommets[0].pos[1]);
         return largeur * hauteur;
     }
 };
