@@ -1,4 +1,4 @@
-// diagrame PlantUML
+// diagramme PlantUML
 
 @startuml
 skinparam classAttributeIconSize 0
