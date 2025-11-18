@@ -7,14 +7,23 @@ private:
     int nb_windows;
     string couleur;
 public:
-    Piece(int _nb_w, string _couleur):nb_windows(_nb_w), couleur(_couleur){}
-    ~Piece()=default;
+    enum TypePiece {
+        PIECE,
+        SALLE_DE_BAIN,
+        CHAMBRE
+    };
+    Piece(int _nb_w, string _couleur):nb_windows(_nb_w), couleur(_couleur) {type_piece=PIECE;}
+    virtual ~Piece() = default;
     // Getters
     int getNbWindows() const {
         return nb_windows;
     }
     string getCouleur() const {
         return couleur;
+    }
+
+    TypePiece getTypePiece() const{
+        return type_piece;
     }
 
     // Setters
@@ -24,6 +33,8 @@ public:
     void setCouleur(const string& _couleur) {
         couleur = _couleur;
     }
+protected:
+    TypePiece type_piece;
 };
 
 class Salle_de_bain : public Piece{
@@ -31,7 +42,7 @@ private:
     bool has_Shower;
 public:
     Salle_de_bain(int _nb_w, string _couleur, bool _has_shower)
-        : Piece(_nb_w, _couleur), has_Shower(_has_shower) {}
+        : Piece(_nb_w, _couleur), has_Shower(_has_shower) {type_piece = SALLE_DE_BAIN;}
     // Getter pour has_Shower
     bool getHasShower() const {
         return has_Shower;
@@ -48,7 +59,7 @@ private:
     int nb_beds;
 public:
     Chambre(int _nb_w, string _couleur, int _nb_beds)
-        : Piece(_nb_w, _couleur), nb_beds(_nb_beds) {}
+        : Piece(_nb_w, _couleur), nb_beds(_nb_beds) {type_piece = CHAMBRE;}
     // Getter pour nb_beds
     int getNbBeds() const {
         return nb_beds;
@@ -69,7 +80,7 @@ public:
     int getNbOfBathroom(){
         int count = 0;
         for (const Piece& p : pieces) {
-            if (typeid(p) == typeid(Salle_de_bain)) {
+            if (p.getTypePiece() == Piece::TypePiece::SALLE_DE_BAIN) {
                 count++;
             }
         }
@@ -78,36 +89,13 @@ public:
     int getNbOfBedroom (){
         int count = 0;
         for (const Piece& p : pieces) {
-            if (typeid(p) == typeid(Chambre)) {
+            if (p.getTypePiece() == Piece::TypePiece::CHAMBRE) {
                 count++;
             }
         }
         return count;
     }
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 int main() {
     // Création des pièces
