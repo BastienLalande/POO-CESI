@@ -46,42 +46,42 @@ public:
         }
     }
     virtual double calculDistance()=0;
-    void message(){
-        cout<<calculDistance()<<'\n';
-    }
+    virtual void message(){cout<< "Calcule de distance d'un parcours" <<'\n';}
 };
 
 class CLparcours2D: public CLParcours{
 public:
     CLparcours2D(int _nb_points):CLParcours(_nb_points){}
     double calculDistance() override {
-    double dist = 0.0;
-    for (int i = 0; i < index - 1; ++i) {
-        CLpoint* p1 = points[i];
-        CLpoint* p2 = points[i+1];
-        double dx = p2->getX() - p1->getX();
-        double dy = p2->getY() - p1->getY();
-        dist += sqrt(dx*dx + dy*dy);
+        double dist = 0.0;
+        for (int i = 0; i < index - 1; ++i) {
+            CLpoint* p1 = points[i];
+            CLpoint* p2 = points[i+1];
+            double dx = p2->getX() - p1->getX();
+            double dy = p2->getY() - p1->getY();
+            dist += sqrt(dx*dx + dy*dy);
+        }
+        return dist;
     }
-    return dist;
-    }
+    void message() override {cout<< "Calcule de distance d'un parcours 2D" <<'\n';}
 };
 
 class CLparcours3D: public CLParcours{
     public:
         CLparcours3D(int _nb_points):CLParcours(_nb_points){}
         double calculDistance() override {
-        double dist = 0.0;
-        for (int i = 0; i < index - 1; ++i) {
-            CLpoint3D* p1 = static_cast<CLpoint3D*>(points[i]);
-            CLpoint3D* p2 = static_cast<CLpoint3D*>(points[i+1]);
-            double dx = p2->getX() - p1->getX();
-            double dy = p2->getY() - p1->getY();
-            double dz = p2->getZ() - p1->getZ();
-            dist += sqrt(dx*dx + dy*dy + dz*dz);
+            double dist = 0.0;
+            for (int i = 0; i < index - 1; ++i) {
+                CLpoint3D* p1 = static_cast<CLpoint3D*>(points[i]);
+                CLpoint3D* p2 = static_cast<CLpoint3D*>(points[i+1]);
+                double dx = p2->getX() - p1->getX();
+                double dy = p2->getY() - p1->getY();
+                double dz = p2->getZ() - p1->getZ();
+                dist += sqrt(dx*dx + dy*dy + dz*dz);
+            }
+            return dist;
         }
-        return dist;
-        }
+        void message() override {cout<< "Calcule de distance d'un parcours 3D" <<'\n';}
     };
 
 int main()
