@@ -1,5 +1,5 @@
 #include <iostream>
-#include <list>
+#include <vector>
 using namespace std;
 
 class Vehicule {
@@ -23,7 +23,7 @@ public:
 };
 
 class StationLavage {
-    list<Vehicule*> parc;
+    vector<Vehicule*> parc;
 public:
     void ajouterVehicule(Vehicule* v) {
         parc.push_back(v);
