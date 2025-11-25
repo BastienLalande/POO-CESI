@@ -1,0 +1,98 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WS4</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><h1 id="boucle-5---ws--architecture-de-programmes.">Boucle 5 - WS : Architecture de programmes.</h1>
+<h2 id="exercice-1">Exercice 1</h2>
+<p>Les patrons de conception (ou design pattern) dénotent des constructions logicielles usuelles basées sur la programmation orientée objet. Ils émanent de situations fréquemment rencontrées lors de la conception ou l’implémentation de programmes. Leur utilisation dans des projets reste à la discrétion des ingénieurs logiciels et peut nécessiter des adaptations. Nous nous proposons d’implémenter un patron de conception <em>Observateur</em>. L’objectif de ce patron de conception est de découpler l’envoi de messages entre des objets observés et d’autres objets observateurs. Ce type de constructions se cache classiquement dans les gestionnaires d’évènement de programmes, pour notifier des actions utilisateurs ou des évènements logiciels.</p>
+<ul>
+<li>Interpréter le diagramme de classe ci-dessous.</li>
+<li>Quel est l’intérêt d’ajouter une couche d’abstraction, matérialisée par les classes <em>Observable</em> et <em>Observer</em> ?</li>
+<li>Que devra-t-on vraissemblablement réaliser avec l’objet <code>observed</code> passé en paramètre de la fonction <code>void update(Observable observed)</code> ?</li>
+<li>Proposer une implémentation en C++ du diagramme de classe ci-dessous. Rajouter les éléments qui vous semblent pertinents afin de tester l’ensemble. Il n’est en effet pas inhabituel d’ajuster une modélisation conceptuelle (ici sous la forme d’un diagramme de classe) aux contraintes de l’environnement de programmation.<br>
+<img src="https://mermaid.ink/img/pako:eNqNksluwyAURX_l6XXjKMMHIMubdN9Fl6ULjJ8TJBsihkiRm38PHpKQuFHLAsHlcN9l6FCaipChbIRz70rsrGgBuIbYPkpH9ijKhiD_Wa9ha7S05OmupxxZ9xsW5ZmbidTT6rZRpD1sNkVixyDPIThyUBQvsMFvzo39cKjrno7rUT1fB-Ny4tONet_ewCQxbpG-vu_IElwonbSqpCzCKbYApX1KBv1_Vhuv6lO2gKNR1S3yc-A-WPdQ4lAJT9nDtcRSL23mr5n6_blhqj9xuMKWbCtUFf_SYMPR76kljiwOK6pFaDxHrntUBG8-T1oi8zbQCq0Juz2yWjQuzsaDTH9xUs8Xpc_Z3g?type=png" alt="enter image description here"></li>
+</ul>
+<h2 id="exercice-2">Exercice 2</h2>
+<p>Nous souhaiterions implémenter un programme reproduisant un avatar adoptant successivement différentes émotions. Ce dernier peut être heureux, joyeux, triste, en colère, ronchon et passe, dans l’ordre (éventuellement en continu) par ces différentes émotions lors de l’exécution. Il faut alors attendre un délai de 5 secondes entre chaque transition. Les émotions de l’avatar peuvent être modélisées par des smiley affichés à l’écran. L’objectif est d’architecturer un programme pour simuler ce comportement. Dans une classe <code>Avatar</code> manipuler une variable de type <code>AvatarState *</code> contenant successivement les types spécialisés <code>Glad</code>, <code>Happy</code>, <code>Sad</code>, <code>Angry</code>, <code>Grumpy</code>. Proposer une classe abstraite <code>AvatarState</code> avec deux méthode. La première <code>void action()</code> affiche un smiley pour transcrire l’émotion courante. La seconde <code>AvatarState next()</code> retourne l’objet <code>AvatarState *</code> suivant ; i.e. représentant l’émotion suivante. Rajouter une méthode <code>void run()</code> dans la classe <code>Avatar</code> pour afficher l’émotion courante et jouer la transition d’émotion.</p>
+<ul>
+<li>Que se serait-il passé si nous avions implémenté la transition d’une émotion à l’autre via un chaînage de fonctions : <code>glad()</code> -&gt; <code>happy()</code> -&gt; <code>sad()</code> -&gt; <code>angry()</code> -&gt; <code>grumpy()</code> -&gt; <code>glad()</code> -&gt; … ?</li>
+<li>Malgré quelques lourdeurs d’implémentation, quel est l’avantage d’une telle approche ?</li>
+</ul>
+<h2 id="exercice-3">Exercice 3</h2>
+<p>Contrairement à nombre de languages le C++ laisse au programmeur une grande flexibilité quant à l’implémentation de ses programmes. Il est par exemple possible, et parfois souhaitable, d’implémenter plusieurs classes au sein de mêmes fichiers ; ce qui n’est pas la norme en Java. En outre, il fournit une mécanique d’implémentation en ligne (<em>in line</em>) et hors ligne (<em>out of line</em>) des classes. En C++, le code est classiquement réparti dans plusieurs typologies de fichiers. Un fichier d’entête (<em>.h</em> ou <em>.hpp</em>) contient généralement les déclarations de variables, de fonctions ou de structures/classes, les macros, les fonctions inline, des commentaires, etc. mais plus rarement l’implémentation à proprement parler. Pour résumer, ce fichier devrait contenir l’ensemble des informations utiles à la compilation d’un projet par un utilisateur tiers. A contrario, les fichiers sources (<em>.cpp</em>) contiennent les définition des fonctions et méthodes, et ne sont pas nécessairement diffusés. En effet et ce n’est pas neutre, le programmeur est maître sur le partage ou non du code source.</p>
+<ul>
+<li>Définir les notions de déclaration et de définition.
+<ul>
+<li>Proposer un exemple de déclaration et définition de méthode.</li>
+<li>Proposer un exemple de déclaration et définition de classe.</li>
+</ul>
+</li>
+<li>A partir de l’exemple de classe accessible via le lien ci-dessous, proposer l’implémentation hors ligne afférente. <a href="https://github.com/Supertuteur/Bloc-POO-CPI-A2/tree/b2029b92b01153df4828be7e86890e58db957d89/Boucle-5/WS/Ex3-Simple-DynamicArray">Lien vers le code source à modifier.</a></li>
+</ul>
+<h2 id="exercice-4">Exercice 4</h2>
+<p>Les templates sont des mécanismes très puissants, non seulement pour rendre un code générique, mais également pour réaliser des traitements, implémenter des mécanismes d’évaluation partielle de code, ou encore intégrer des contraintes afin de valider un code, le tout statiquement. Le cadre d’usage des templates C++ est cependant limité car appliqués statiquement par le compilateur. C’est naturellement qu’il est devenu le mécanisme de référence utilisé pour implémenter la généricité (polymorphisme paramétrique). Cette technique implique de paramétrer une structure de données par un ou plusieurs types spécifiques à la compilation. L’idée est de raffiner les éléments contenus dans une structure de de données au dernier moment. Ainsi, le conteneur reste suffisamment générique, diffusable et employable dans de multiples situations.</p>
+<ul>
+<li>Donner un exemple cas d’usage pertinent des templates.</li>
+</ul>
+<p>Les questions suivantes portent sur le code fourni dans l’exercice 3.</p>
+<ul>
+<li>Quel est l’intérêt d’utiliser le mot clé <em>typedef</em> ? Quelles en sont les limitations ?</li>
+<li>Pourquoi avoir créé la fonction <code>array_element_to_string(ArrayElement *el)</code> ? Quelles en sont les limitations ?</li>
+<li>L’héritage permettrait-il de rendre cette implémentation plus générique ? Quels en seraient le ou les inconvénients ?</li>
+<li>Faire évoluer l’implémentation par la mise en oeuvre du mécanisme de template.  Appliquer cela sur l’écriture de code en ligne et hors ligne. Observez les implications, en particulier sur la version hors ligne. L’objectif sera d’être capable d’utiliser le tableau dynamique sous la forme suivante :</li>
+</ul>
+<pre><code>DynamicArray&lt;string&gt; array; 
+array.add("Hello");
+</code></pre>
+<ul>
+<li>Montrer le bon fonctionnement de votre code sur un exemple.</li>
+</ul>
+<h2 id="exercice-5">Exercice 5</h2>
+<p>Les espaces de nom ou <em>namespace</em> sont des constructions permettant d’organiser un code, au sein de groupes composés de multiples fonctions et classes. Ils ont d’une part un rôle structurel, car ils permettent de rassembler des composantes logiciel sémantiquement liées, mais sont également utiles pour éviter les collisions de noms. Ce phénomène se produit classiquement lorsque plusieurs identificateurs portent le même nom. En raison de l’ambiguïté générée, le compilateur peut ainsi ne plus être en mesure d’associer une utilisation de code à son implémentation. Typiquement une bibliothèque logicielle contiendra plusieurs espaces de noms.</p>
+<ul>
+<li>Exécuter le code ci-dessous. Quel est le résultat ? Corriger en conséquence.</li>
+</ul>
+<pre><code>#include &lt;iostream&gt;
+
+int main() {
+  cout &lt;&lt; "Hello World!\n";
+  return 0;
+}
+</code></pre>
+<ul>
+<li>Quel est l’intérêt du mot clé <code>using</code> ? Implémenter et compiler le code ci-dessous. Que se passe-t-il ?</li>
+</ul>
+<pre><code>#include &lt;iostream&gt;
+#include &lt;list&gt;
+
+using namespace std;
+
+template&lt;typename T&gt;
+class list {
+public:
+  void clear() { ; };
+};
+
+int main() {
+  list&lt;int&gt; m;
+
+  m.clear();
+  
+  return 0;
+}
+</code></pre>
+<ul>
+<li>Dans quelle situation l’utilisation de ce mot clé n’est-elle pas envisageable ? Quelle stratégie employer dans ce cas ?</li>
+<li>Compléter le code disponible à l’adresse ci-dessous en utilisant notamment les espaces de nom. <a href="https://github.com/Supertuteur/Bloc-POO-CPI-A2/tree/8e9e0292a58996b222c8070ab86b1cfc5f1ac9ec/Boucle-5/WS/Ex5-Namespace">Lien vers le code source à compléter.</a></li>
+</ul>
+</div>
+</body>
+
+</html>
